@@ -21,6 +21,7 @@ public class GridGUI
 	private JButton stepButton = new JButton("Step");
 	private JLabel tickCount = new JLabel("Ticks: " + ticks);
 
+	/* constructor */
 	public GridGUI(int rows, int cols)
 	{
 		this.rows = rows;
@@ -50,6 +51,9 @@ public class GridGUI
 		this.disp();
 	}
 
+	/*  disp
+		preps the gameFrame for display
+	*/
 	public void disp()
 	{
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,6 +62,9 @@ public class GridGUI
 		gameFrame.setVisible(true);
 	}
 
+	/*	play
+		instantiates the Grid and increments the game by one generation
+	*/
 	public void play()
 	{
 		Cell[][] gridCells = new Cell[rows][cols];
@@ -97,6 +104,7 @@ public class GridGUI
 		ticks++;
 	}
 
+	/* nested action listening class */
 	private class Listener implements MouseListener
 	{
 		public void mouseClicked(MouseEvent me)
@@ -125,7 +133,7 @@ public class GridGUI
 			}
 		}
 
-		//unused
+		/* unused methods */
 		public void mouseEntered(MouseEvent me) {}
 		public void mouseExited(MouseEvent me) {}
 		public void mousePressed(MouseEvent me) {}

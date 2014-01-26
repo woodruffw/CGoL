@@ -28,6 +28,7 @@ public class StartGUI
 	private JTextField colField = new JTextField();
 	private JButton playButton = new JButton("Play");
 
+	/* constructor */
 	public StartGUI()
 	{
 		startFrame.setJMenuBar(menuBar);
@@ -50,6 +51,15 @@ public class StartGUI
 		playButton.addActionListener(listener);
 	}
 
+	/* launchpoint */
+	public static void main(String[] args)
+	{
+		new StartGUI().disp();
+	}
+
+	/*  disp
+		preps the startFrame for display
+	*/
 	public void disp()
 	{
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,11 +68,7 @@ public class StartGUI
 		startFrame.setVisible(true);
 	}
 
-	public static void main(String[] args)
-	{
-		new StartGUI().disp();
-	}
-
+	/* nested action listening class */
 	private class Listener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
