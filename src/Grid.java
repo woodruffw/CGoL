@@ -40,14 +40,33 @@ public class Grid
 	{
 		int count = 0;
 
+		/*
 		for (int i = row - 1; i <= row + 1; i++)
 		{
 			for (int j = col - 1; j <= col + 1; j++)
 			{
-				if (i >= 0 && i < grid.length && j >= 0 && j < grid[0].length && grid[i][j].isAlive())
+				if (i >= 0 && i < grid.length && j >= 0 && j < grid[0].length && !(i != row && i != col) && grid[i][j].isAlive())
 					count++;
 			}
 		}
+		*/
+
+		if (row - 1 >= 0 && col - 1 >= 0 && grid[row - 1][col - 1].isAlive())
+			count++;
+		if (row - 1 >= 0 && col + 1 < grid[0].length && grid[row - 1][col + 1].isAlive())
+			count++;
+		if (row - 1 >= 0 && grid[row - 1][col].isAlive())
+			count++;
+		if (col - 1 >= 0 && grid[row][col - 1].isAlive())
+			count++;
+		if (col + 1 < grid[0].length && grid[row][col + 1].isAlive())
+			count++;
+		if (row + 1 < grid.length && col - 1 >= 0 && grid[row + 1][col - 1].isAlive())
+			count++;
+		if (row + 1 < grid.length && col + 1 < grid[0].length && grid[row + 1][col + 1].isAlive())
+			count++;
+		if (row + 1 < grid.length && grid[row + 1][col].isAlive())
+			count++;
 
 		return count;
 	}
