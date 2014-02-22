@@ -77,7 +77,7 @@ public class StartGUI
 			{
 				JOptionPane.showMessageDialog(null, "This program implements Conway\'s Game of Life, a cellular automaton.\n"
 												+ "Author: William Woodruff (william@tuffbizz.com)\n"
-												+ "Licensed under the MIT License. Source at http://github.com/woodrufw/CGoL.",
+												+ "Licensed under the MIT License. Source at http://github.com/woodruffw/CGoL.",
 												"About This Program",
 												JOptionPane.INFORMATION_MESSAGE);
 			}
