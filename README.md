@@ -46,10 +46,19 @@ From your terminal:
 ```
 git clone http://github.com/woodrufw/CGoL
 cd CGoL
+```
+
+If you want just the class files:
+```
 make
 ```
 
-The resulting class files will be left in "bin".
+If you want an executable JAR file:
+```
+make jar
+```
+
+The resulting files will be left in "bin".
 
 To run the game:
 
