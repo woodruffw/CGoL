@@ -40,7 +40,7 @@ The file can be arbitrarily large, although you should consider the limitations 
 To load the file, just click the 'Load Grid From File...' menu item under the 'File' menu.
 
 ## Installation
-CGoL builds on all systems with Java.
+CGoL builds on all systems with Java 7 (required for try-with-resources).
 From your terminal:
 
 ```
