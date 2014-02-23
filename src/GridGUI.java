@@ -21,7 +21,7 @@ public class GridGUI
 	private JButton stepButton = new JButton("Step");
 	private JLabel tickCount = new JLabel("Ticks: " + ticks);
 
-	/* constructor */
+	/* primary constructor - creates a blank grid */
 	public GridGUI(int rows, int cols)
 	{
 		this.rows = rows;
@@ -41,6 +41,37 @@ public class GridGUI
 			for (int j = 0; j < cols; j++)
 			{
 				cellPanels[i][j] = new JPanel();
+				cellPanels[i][j].setOpaque(true);
+				cellPanels[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
+				cellPanels[i][j].addMouseListener(listener);
+				gamePanel.add(cellPanels[i][j]);
+			}
+		}
+
+		this.disp();
+	}
+
+	/* secondary constructor - accepts a state */
+	public GridGUI(Cell[][] state)
+	{
+		rows = state.length;
+		cols = state[0].length;
+
+		Listener listener = new Listener();
+		cellPanels = new JPanel[rows][cols];
+		gamePanel.setLayout(new GridLayout(rows, cols));
+		gameFrame.getContentPane().setLayout(new BorderLayout());
+		gameFrame.getContentPane().add(gamePanel);
+		stepButton.addMouseListener(listener);
+		gameFrame.getContentPane().add(stepButton, BorderLayout.SOUTH);
+		gameFrame.getContentPane().add(tickCount, BorderLayout.NORTH);
+
+		for (int i = 0; i < rows; i++)
+		{
+			for (int j = 0; j < cols; j++)
+			{
+				cellPanels[i][j] = new JPanel();
+				cellPanels[i][j].setBackground((state[i][j].isAlive()) ? Color.black : Color.white);
 				cellPanels[i][j].setOpaque(true);
 				cellPanels[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
 				cellPanels[i][j].addMouseListener(listener);

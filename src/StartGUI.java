@@ -9,6 +9,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.*;
+import java.util.*;
 
 public class StartGUI
 {
@@ -19,6 +21,7 @@ public class StartGUI
 
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu menu = new JMenu("File");
+	private JMenuItem loadItem = new JMenuItem("Load Grid From File...");
 	private JMenuItem aboutItem = new JMenuItem("About");
 	private JMenuItem quitItem = new JMenuItem("Quit");
 
@@ -32,6 +35,7 @@ public class StartGUI
 	public StartGUI()
 	{
 		startFrame.setJMenuBar(menuBar);
+		menu.add(loadItem);
 		menu.add(aboutItem);
 		menu.add(quitItem);
 		menuBar.add(menu);
@@ -46,6 +50,7 @@ public class StartGUI
 
 		Listener listener = new Listener();
 
+		loadItem.addActionListener(listener);
 		aboutItem.addActionListener(listener);
 		quitItem.addActionListener(listener);
 		playButton.addActionListener(listener);
@@ -73,7 +78,48 @@ public class StartGUI
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			if (e.getSource().equals(aboutItem))
+			if (e.getSource().equals(loadItem))
+			{
+				JFileChooser fileChooser = new JFileChooser();
+				int action = fileChooser.showOpenDialog(null);
+
+				if (action == JFileChooser.APPROVE_OPTION)
+				{
+					try (BufferedReader reader = new BufferedReader(new FileReader(fileChooser.getSelectedFile())))
+					{
+						String line;
+						ArrayList<String> lines = new ArrayList<String>();
+
+						while ((line = reader.readLine()) != null)
+						{
+							lines.add(line);
+						}
+
+						Cell[][] state = new Cell[lines.size()][lines.get(0).length()];
+						for (int i = 0; i < lines.size(); i++)
+						{
+							for (int j = 0; j < lines.get(i).length(); j++)
+							{
+								state[i][j] = new Cell((lines.get(i).charAt(j) == '1') ? true : false);
+							}
+						}
+
+						new GridGUI(state);
+					}
+					catch (IOException ioe)
+					{
+						JOptionPane.showMessageDialog(null, "Error: File could not be read.", "IOE",
+													JOptionPane.ERROR_MESSAGE);
+					}
+					catch (NullPointerException npe)
+					{
+						JOptionPane.showMessageDialog(null, "Error: File appears misformatted or corrupted.", "NPE",
+													JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+
+			else if (e.getSource().equals(aboutItem))
 			{
 				JOptionPane.showMessageDialog(null, "This program implements Conway\'s Game of Life, a cellular automaton.\n"
 												+ "Author: William Woodruff (william@tuffbizz.com)\n"
@@ -95,7 +141,7 @@ public class StartGUI
 					cols = Math.abs(Integer.parseInt(colField.getText()));
 					new GridGUI(rows, cols);
 				}
-				catch (Exception ex)
+				catch (NumberFormatException nfe)
 				{
 					JOptionPane.showMessageDialog(null, "Error: Input cannot be parsed. Enter only positive integers.", "NFE",
 													JOptionPane.ERROR_MESSAGE);
