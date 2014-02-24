@@ -87,7 +87,6 @@ public class GridGUI
 	*/
 	public void disp()
 	{
-		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setSize(800, 800);
 		gameFrame.setResizable(true);
 		gameFrame.setVisible(true);
