@@ -44,7 +44,7 @@ CGoL builds on all systems with Java 7 (required for try-with-resources).
 From your terminal:
 
 ```
-git clone http://github.com/woodrufw/CGoL
+git clone http://github.com/woodruffw/CGoL
 cd CGoL
 ```
 
