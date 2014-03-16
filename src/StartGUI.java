@@ -111,9 +111,9 @@ public class StartGUI
 						JOptionPane.showMessageDialog(null, "Error: File could not be read.", "IOE",
 													JOptionPane.ERROR_MESSAGE);
 					}
-					catch (NullPointerException npe)
+					catch (Exception gex)
 					{
-						JOptionPane.showMessageDialog(null, "Error: File appears misformatted or corrupted.", "NPE",
+						JOptionPane.showMessageDialog(null, "Error: File appears misformatted or corrupted.", "NPE/IOOBE",
 													JOptionPane.ERROR_MESSAGE);
 					}
 				}
