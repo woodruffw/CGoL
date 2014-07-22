@@ -3,7 +3,7 @@ CGoL
 
 An implementation of Conway's Game of Life in Java, with optional user input.
 
-![alt tag] (https://raw.github.com/woodrufw/CGoL/master/examples/cgol.gif?raw=true)
+![alt tag](https://raw.github.com/woodrufw/CGoL/master/examples/cgol.gif?raw=true)
 
 
 ## What is Conway's Game of Life?
@@ -24,9 +24,10 @@ The rules are as follows:
 ## Features:
 + Real-time user input. Allows the user to modify the state of the game, even after beginning.
 + Optional file input. Allows the user to quickly load seeds (like a glider gun) without manually entering the values.
++ Ability to save the current generation and resume at any time with `.grid` files.
 
 ### File format:
-If you want to use the file input feature, just create a text-file with the following format:
+If you want to use the file input feature, just create a `.grid` file with the following format (ASCII or UTF):
 
 ```
 001001
