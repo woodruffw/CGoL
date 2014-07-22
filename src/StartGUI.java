@@ -81,6 +81,8 @@ public class StartGUI
 			if (e.getSource().equals(loadItem))
 			{
 				JFileChooser fileChooser = new JFileChooser();
+				GridFileFilter filter = new GridFileFilter();
+				fileChooser.setFileFilter(filter);
 				int action = fileChooser.showOpenDialog(null);
 
 				if (action == JFileChooser.APPROVE_OPTION)

@@ -5,6 +5,7 @@
 	Provides a graphical grid for the Game of Life to operate on.
 */
 
+import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -17,8 +18,10 @@ public class GridGUI
 
 	private JFrame gameFrame = new JFrame("Conway\'s Game of Life");
 	private JPanel gamePanel = new JPanel();
+	private JPanel bottomPanel = new JPanel();
 	private JPanel[][] cellPanels;
 	private JButton stepButton = new JButton("Step");
+	private JButton saveButton = new JButton("Save state");
 	private JLabel tickCount = new JLabel("Ticks: " + ticks);
 
 	/* primary constructor - creates a blank grid */
@@ -32,9 +35,13 @@ public class GridGUI
 		gamePanel.setLayout(new GridLayout(rows, cols));
 		gameFrame.getContentPane().setLayout(new BorderLayout());
 		gameFrame.getContentPane().add(gamePanel);
-		stepButton.addMouseListener(listener);
-		gameFrame.getContentPane().add(stepButton, BorderLayout.SOUTH);
+		bottomPanel.add(stepButton);
+		bottomPanel.add(saveButton);
+		gameFrame.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 		gameFrame.getContentPane().add(tickCount, BorderLayout.NORTH);
+
+		stepButton.addMouseListener(listener);
+		saveButton.addMouseListener(listener);
 
 		for (int i = 0; i < rows; i++)
 		{
@@ -143,6 +150,40 @@ public class GridGUI
 			{
 				GridGUI.this.play();
 				tickCount.setText("Ticks: " + ticks);
+			}
+			else if (me.getSource().equals(saveButton))
+			{
+				JFileChooser fileChooser = new JFileChooser();
+				GridFileFilter filter = new GridFileFilter();
+				fileChooser.setFileFilter(filter);
+				int action = fileChooser.showSaveDialog(null);
+
+				if (action == JFileChooser.APPROVE_OPTION)
+				{
+					File file;
+
+					if (fileChooser.getSelectedFile().getName().endsWith(".grid"))
+						file = fileChooser.getSelectedFile();
+					else
+						file = new File(fileChooser.getSelectedFile().getAbsolutePath() + ".grid");
+
+					try (BufferedWriter writer = new BufferedWriter(new FileWriter(file)))
+					{
+						for (int i = 0; i < cellPanels.length; i++)
+						{
+							for (int j = 0; j < cellPanels[0].length; j++)
+							{
+								writer.write((cellPanels[i][j].getBackground().equals(Color.black)) ? '1' : '0');
+							}
+							writer.newLine();
+						}
+					}
+					catch (IOException ioe)
+					{
+						JOptionPane.showMessageDialog(null, "Error: File could not be written.", "IOE",
+													JOptionPane.ERROR_MESSAGE);
+					}
+				}
 			}
 			else
 			{
